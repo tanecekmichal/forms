@@ -21,6 +21,31 @@ exports.matchField = function (test) {
     });
 };
 
+exports.callback_not_equal = function(test) {
+    var v = function (v) { if(v < 50) {return true} else {return false;}};
+    var v2 = v.toString();
+
+    validators.callback(v, 'Value must be lesser than  50.')('form', {data: 100}, function (err) {
+        test.equals(err, 'Value must be lesser than  50.');
+        validators.callback(v2,'Value must be lesser than  50.')('form', {data: 100}, function (err) {
+            test.equals(err, 'Value must be lesser than  50.');
+            test.done();
+        });
+    });
+}
+exports.callback_equal = function(test) {
+    var v = function (v) { if(v < 50) {return true} else {return false;}};
+    var v2 = v.toString();
+
+    validators.callback(v, 'Value must be lesser than  50.')('form', {data: 48}, function (err) {
+        test.equals(err, undefined);
+        validators.callback(v2,'Value must be lesser than  50.')('form', {data: 48}, function (err) {
+            test.equals(err, undefined);
+            test.done();
+        });
+    });
+}
+
 exports.required = function (test) {
     var v = validators.required(),
         emptyFields = { field: { name: 'field', data: '' } },
