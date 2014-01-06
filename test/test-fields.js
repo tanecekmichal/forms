@@ -232,7 +232,7 @@ exports['number toHTML'] = function (test) {
 testField('boolean');
 
 exports['boolean parse'] = function (test) {
-    var field = fields.boolean();
+    var field = fields.checkbox();
     test.equals(field.parse(), false);
     test.equals(field.parse(null), false);
     test.equals(field.parse(0), false);
@@ -244,7 +244,7 @@ exports['boolean parse'] = function (test) {
 
 exports['boolean toHTML'] = function (test) {
     test.equals(
-        fields.boolean().toHTML('fieldname'),
+        fields.checkbox().toHTML('fieldname'),
         '<div class="field">' +
             '<label for="id_fieldname">Fieldname</label>' +
             '<input type="checkbox" name="fieldname" id="id_fieldname" value="on" />' +
